@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:HappyCoding.GRpcCommunication.ServerApp.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HappyCoding.GRpcCommunication.ServerApp.Views.ServerView">
+    <UserControl.DataContext>
+        <local:ServerViewModel />
+    </UserControl.DataContext>
+
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    IsEnabled="{Binding Path=IsNotBusy}">
+            <Button Command="{Binding Path=Command_StartServer}"
+                    Content="Start" 
+                    Margin="3"/>
+            <Button Command="{Binding Path=Command_StopServer}"
+                    Content="Stop" 
+                    Margin="3"/>
+
+            <TextBlock Margin="3"
+                       Text="|"
+                       VerticalAlignment="Center"/>
+
+            <Button Command="{Binding Path=Command_ClearLog}"
+                    Content="Clear Logging"
+                    Margin="3"></Button>
+
+            <TextBlock Margin="3"
+                       Text="|"
+                       VerticalAlignment="Center"/>
+
+            <Button Command="{Binding Path=Command_Refresh}"
+                    Content="🗘 Refresh"
+                    Margin="3"></Button>
+            <TextBlock Margin="3"
+                       Text="Auto refresh: "
+                       VerticalAlignment="Center" />
+            <CheckBox IsChecked="{Binding Path=AutoRefreshEnabled}"
+                      VerticalAlignment="Center"
+                      Margin="3,0,3,0" />
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding Path=ServerLog}"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="False"
+                  IsReadOnly="True"
+                  HorizontalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Timestamp"
+                                    Binding="{Binding Path=TimestampStr}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="LogLevel"
+                                    Binding="{Binding Path=LogLevel}"/>
+                <DataGridTextColumn Header="Message"
+                                    Binding="{Binding Path=Message}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</UserControl>

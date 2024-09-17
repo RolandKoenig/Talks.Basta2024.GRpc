@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:propGrid="clr-namespace:RolandK.Avalonia.PropertyGridControl;assembly=RolandK.CommonLibs"
+             xmlns:local="clr-namespace:HappyCoding.GRpcCommunication.ServerApp.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HappyCoding.GRpcCommunication.ServerApp.Views.OptionsView">
+    <UserControl.DataContext>
+        <local:OptionsViewModel />
+    </UserControl.DataContext>
+ 
+    <DockPanel LastChildFill="True">
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Top">
+            <Button Command="{Binding Path=Command_Save}"
+                    Content="Save"
+                    Margin="3" 
+                    ToolTip.Tip="Changes apply after starting the server" />
+            <Button Command="{Binding Path=Command_DiscardChanges}"
+                    Content="Discard changes"
+                    Margin="3" 
+                    ToolTip.Tip="Resets all values to last saved state" />
+        </StackPanel>
+
+        <propGrid:PropertyGrid SelectedObject="{Binding Path=Options}" />
+    </DockPanel>
+</UserControl>
