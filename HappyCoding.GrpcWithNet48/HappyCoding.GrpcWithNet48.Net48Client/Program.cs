@@ -18,8 +18,8 @@ namespace HappyCoding.GrpcWithNet48.Net48Client
             var baseUri = new Uri("http://localhost:5000");
             var channel = GrpcChannel.ForAddress(baseUri, new GrpcChannelOptions { HttpClient = httpClient });
 
-            // await RunGreeterSampleAsync(channel);
-            await RunServerSideStreamingSampleAsync(channel);
+            await RunGreeterSampleAsync(channel);
+            // await RunServerSideStreamingSampleAsync(channel);
         }
 
         private static async Task RunGreeterSampleAsync(GrpcChannel grpcChannel)
