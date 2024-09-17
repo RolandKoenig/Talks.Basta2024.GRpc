@@ -30,11 +30,7 @@ public partial class PropertyGrid : UserControl
     public object? SelectedObject
     {
         get => this.GetValue(SelectedObjectProperty);
-        set
-        {
-            this.SetValue(SelectedObjectProperty, value);
-            OnSelectedObjectChanged(this, false);
-        }
+        set => this.SetValue(SelectedObjectProperty, value);
     }
 
     public PropertyGridEditControlFactory? EditControlFactory
@@ -66,6 +62,17 @@ public partial class PropertyGrid : UserControl
     public void FocusFirstValueRowEditor()
     {
         // FocusManager.Instance?.Focus(_firstValueRowEditor, NavigationMethod.Tab);
+    }
+
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (change.Property == SelectedObjectProperty)
+        {
+            OnSelectedObjectChanged(this, false);
+        }
     }
 
     private static void OnSelectedObjectChanged(AvaloniaObject sender, bool beforeChanging)

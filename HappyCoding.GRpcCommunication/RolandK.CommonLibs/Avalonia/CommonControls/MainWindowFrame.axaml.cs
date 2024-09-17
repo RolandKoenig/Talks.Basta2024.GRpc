@@ -37,11 +37,7 @@ public partial class MainWindowFrame : UserControl
     public MainWindowFrameStatus Status
     {
         get => this.GetValue(StatusProperty);
-        set
-        {
-            this.SetValue(StatusProperty, value);
-            OnStatusChanged(this, false);
-        }
+        set => this.SetValue(StatusProperty, value);
     }
 
     public MainWindowFrame()
@@ -61,6 +57,17 @@ public partial class MainWindowFrame : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+    }
+
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (change.Property == StatusProperty)
+        {
+            OnStatusChanged(this, false);
+        }
     }
 
     private static void OnStatusChanged(AvaloniaObject sender, bool beforeChanging)
