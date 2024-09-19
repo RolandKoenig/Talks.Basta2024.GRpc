@@ -6,9 +6,9 @@ public static class Program
 {
     public static async Task Main()
     {
-        // using var channel = GrpcSetup.SetupGrpcChannel();
+        using var channel = GrpcSetup.SetupGrpcChannel();
         // using var channel = GrpcSetup.SetupGrpcChannelWithSocketHttpHandlerConfig();
-        using var channel = GrpcSetup.SetupGrpcChannelWithLoadBalancing();
+        // using var channel = GrpcSetup.SetupGrpcChannelWithLoadBalancing();
 
         Console.WriteLine("Connecting...");
         await channel.ConnectAsync();

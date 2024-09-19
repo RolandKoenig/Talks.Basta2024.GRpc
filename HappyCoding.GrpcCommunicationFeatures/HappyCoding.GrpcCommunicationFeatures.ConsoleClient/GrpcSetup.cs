@@ -18,7 +18,7 @@ internal static class GrpcSetup
     {
         var socketsHttpHandler = new SocketsHttpHandler();
         socketsHttpHandler.PooledConnectionIdleTimeout = TimeSpan.FromSeconds(5);
-
+        
         var grpcChannelOptions = new GrpcChannelOptions()
         {
             HttpHandler = socketsHttpHandler,

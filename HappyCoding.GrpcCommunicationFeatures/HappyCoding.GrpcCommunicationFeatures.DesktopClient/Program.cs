@@ -42,9 +42,9 @@ internal class Program
                 services.AddSharedServices();
 
                 // Add gRPC
-                // GrpcSetup.SetupGrpc(services);
+                GrpcSetup.SetupGrpc(services);
                 // GrpcSetup.SetupGrpcWithSocketHttpHandlerConfig(services);
-                GrpcSetup.SetupGrpcWithLoadBalancing(services);
+                // GrpcSetup.SetupGrpcWithLoadBalancing(services);
             })
             .LogToTrace();
 }
