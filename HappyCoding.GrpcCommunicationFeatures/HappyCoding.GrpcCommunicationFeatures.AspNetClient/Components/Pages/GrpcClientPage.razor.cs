@@ -1,7 +1,7 @@
 ﻿using HappyCoding.GrpcCommunicationFeatures.ProtoDefinition;
 using Microsoft.AspNetCore.Components;
 
-namespace HappyCoding.GrpcCommunicationFeatures.AspNetClient.Pages;
+namespace HappyCoding.GrpcCommunicationFeatures.AspNetClient.Components.Pages;
 
 public partial class GrpcClientPage
 {

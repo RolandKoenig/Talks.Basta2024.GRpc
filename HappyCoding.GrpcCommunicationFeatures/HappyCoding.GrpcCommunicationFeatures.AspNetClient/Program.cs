@@ -1,40 +1,37 @@
+using HappyCoding.GrpcCommunicationFeatures.AspNetClient;
+using HappyCoding.GrpcCommunicationFeatures.AspNetClient.Components;
 using HappyCoding.GrpcCommunicationFeatures.Shared;
 
-namespace HappyCoding.GrpcCommunicationFeatures.AspNetClient;
+var builder = WebApplication.CreateBuilder(args);
 
-public class Program
+// Shared services from this sample application
+builder.Services.AddSharedServices();
+
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+// Add gRPC
+GrpcSetup.SetupGrpc(builder.Services, builder.Configuration);
+// GrpcSetup.SetupGrpcWithSocketHttpHandlerConfig(builder.Services, builder.Configuration);
+// GrpcSetup.SetupGrpcWithLoadBalancing(builder.Services, builder.Configuration);
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
 {
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-
-        // Shared services from this sample application
-        builder.Services.AddSharedServices();
-
-        // Add services to the container.
-        builder.Services.AddRazorPages();
-        builder.Services.AddServerSideBlazor();
-
-        // Add gRPC
-        GrpcSetup.SetupGrpc(builder.Services, builder.Configuration);
-        // GrpcSetup.SetupGrpcWithSocketHttpHandlerConfig(builder.Services, builder.Configuration);
-        // GrpcSetup.SetupGrpcWithLoadBalancing(builder.Services, builder.Configuration);
-
-        // Build pipeline
-        var app = builder.Build();
-
-        if (!app.Environment.IsDevelopment())
-        {
-            app.UseExceptionHandler("/Error");
-        }
-
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
-        app.MapBlazorHub();
-        app.MapFallbackToPage("/_Host");
-
-        app.Run();
-    }
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseAntiforgery();
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+app.Run();
